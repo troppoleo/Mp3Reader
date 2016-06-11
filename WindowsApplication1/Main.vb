@@ -145,4 +145,25 @@ Public Class Main
             btnStartAtSecond_Click(sender, e)
         End If
     End Sub
+
+
+    Private Sub Main_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If (e.KeyCode = Keys.Space) Then
+            btnPauseResume_Click(sender, e)
+        End If
+    End Sub
+
+ 
+
+    Private Sub PauseResumeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PauseResumeToolStripMenuItem.Click
+        btnPauseResume_Click(sender, e)
+    End Sub
+
+    Private Sub MarkToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MarkToolStripMenuItem.Click
+        btnMark_Click(sender, e)
+    End Sub
+
+    Private Sub StartFromHereToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartFromHereToolStripMenuItem.Click
+        btnStartAtSecond_Click(sender, e)
+    End Sub
 End Class
