@@ -22,6 +22,8 @@ Partial Class Main
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.btnPlay = New System.Windows.Forms.Button()
         Me.btnPause = New System.Windows.Forms.Button()
         Me.btnResume = New System.Windows.Forms.Button()
@@ -36,6 +38,13 @@ Partial Class Main
         Me.btnNext10 = New System.Windows.Forms.Button()
         Me.btnPrev10 = New System.Windows.Forms.Button()
         Me.btnStop = New System.Windows.Forms.Button()
+        Me.txtSeconds = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnStartAtSecond = New System.Windows.Forms.Button()
+        Me.btnMark = New System.Windows.Forms.Button()
+        Me.txtCurrentSecond = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'btnPlay
@@ -159,12 +168,74 @@ Partial Class Main
         Me.btnStop.Text = "Stop"
         Me.btnStop.UseVisualStyleBackColor = True
         '
+        'txtSeconds
+        '
+        Me.txtSeconds.Location = New System.Drawing.Point(478, 71)
+        Me.txtSeconds.Name = "txtSeconds"
+        Me.txtSeconds.Size = New System.Drawing.Size(100, 22)
+        Me.txtSeconds.TabIndex = 14
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(326, 76)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(56, 17)
+        Me.Label1.TabIndex = 15
+        Me.Label1.Text = "Second"
+        '
+        'btnStartAtSecond
+        '
+        Me.btnStartAtSecond.Location = New System.Drawing.Point(584, 66)
+        Me.btnStartAtSecond.Name = "btnStartAtSecond"
+        Me.btnStartAtSecond.Size = New System.Drawing.Size(116, 33)
+        Me.btnStartAtSecond.TabIndex = 16
+        Me.btnStartAtSecond.Text = "Start from here"
+        Me.btnStartAtSecond.UseVisualStyleBackColor = True
+        '
+        'btnMark
+        '
+        Me.btnMark.Location = New System.Drawing.Point(388, 68)
+        Me.btnMark.Name = "btnMark"
+        Me.btnMark.Size = New System.Drawing.Size(72, 33)
+        Me.btnMark.TabIndex = 17
+        Me.btnMark.Text = "Mark"
+        Me.btnMark.UseVisualStyleBackColor = True
+        '
+        'txtCurrentSecond
+        '
+        Me.txtCurrentSecond.Location = New System.Drawing.Point(147, 100)
+        Me.txtCurrentSecond.Name = "txtCurrentSecond"
+        Me.txtCurrentSecond.Size = New System.Drawing.Size(100, 22)
+        Me.txtCurrentSecond.TabIndex = 18
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(32, 103)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(109, 17)
+        Me.Label2.TabIndex = 19
+        Me.Label2.Text = "Current second:"
+        '
+        'Timer1
+        '
+        Me.Timer1.Interval = 1000
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Desktop
         Me.ClientSize = New System.Drawing.Size(953, 228)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.txtCurrentSecond)
+        Me.Controls.Add(Me.btnMark)
+        Me.Controls.Add(Me.btnStartAtSecond)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.txtSeconds)
         Me.Controls.Add(Me.btnStop)
         Me.Controls.Add(Me.btnPrev10)
         Me.Controls.Add(Me.btnNext10)
@@ -178,6 +249,7 @@ Partial Class Main
         Me.Controls.Add(Me.btnResume)
         Me.Controls.Add(Me.btnPause)
         Me.Controls.Add(Me.btnPlay)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Main"
         Me.Text = "Play MP3"
         Me.ResumeLayout(False)
@@ -198,5 +270,12 @@ Partial Class Main
     Friend WithEvents btnNext10 As System.Windows.Forms.Button
     Friend WithEvents btnPrev10 As System.Windows.Forms.Button
     Friend WithEvents btnStop As System.Windows.Forms.Button
+    Friend WithEvents txtSeconds As System.Windows.Forms.TextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents btnStartAtSecond As System.Windows.Forms.Button
+    Friend WithEvents btnMark As System.Windows.Forms.Button
+    Friend WithEvents txtCurrentSecond As System.Windows.Forms.TextBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents Timer1 As System.Windows.Forms.Timer
 
 End Class

@@ -2,16 +2,22 @@
 
 Public Class Main
 
-    Private _W As New WMPLib.WindowsMediaPlayer()
+    Private _W As WMPLib.WindowsMediaPlayer = Nothing
 
     Private Sub btnOpen_Click(sender As Object, e As EventArgs) Handles btnOpen.Click
         OpenFileDialog1.Filter = "Mp3 file (.mp3)|*.mp3"
         '"Text Files (.txt)|*.txt
         OpenFileDialog1.FilterIndex = 1
+
         Dim myDr = OpenFileDialog1.ShowDialog()
 
         'If (mdr = ok)
         txtPath.Text = OpenFileDialog1.FileName
+
+        If (Not String.IsNullOrWhiteSpace(txtPath.Text)) Then
+            PlayMp3()
+        End If
+
     End Sub
 
 
@@ -19,6 +25,13 @@ Public Class Main
         'Dim myME As New System.Windows.Controls.MediaElement()
         'myME.Play()
 
+        PlayMp3()
+    End Sub
+
+    Private Sub PlayMp3()
+        If (Not _W Is Nothing) Then
+            _W.close()
+        End If
         _W = New WMPLib.WindowsMediaPlayer()
         '_W.URL = "C:\Users\Administrator\Downloads\ESLPod1215.mp3"
         Dim myS = txtPath.Text.Trim()
@@ -27,7 +40,8 @@ Public Class Main
         End If
         _W.URL = myS
         _W.controls.play()
-        _isInPlay = True
+        IsInPause = False
+        '_isInPlay = True
     End Sub
 
 
@@ -41,14 +55,12 @@ Public Class Main
 
     End Sub
 
-    'Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
-    '    _W.controls.currentPosition = _W.controls.currentPosition - 2
-    'End Sub
 
-    Private _isInPlay As Boolean
+    'Private _isInPlay As Boolean
     Private Sub btnResume_Click(sender As Object, e As EventArgs) Handles btnResume.Click
         _W.controls.play()
-        _isInPlay = True
+        Timer1.Enabled = True
+        '_isInPlay = True
     End Sub
 
 
@@ -77,18 +89,60 @@ Public Class Main
     End Sub
 
     Private _isInPause As Boolean = False
-    Private Sub btnPauseResume_Click(sender As Object, e As EventArgs) Handles btnPauseResume.Click
-        If (_isInPlay) Then
-            If (_isInPause) Then
-                _W.controls.play()
-                _isInPause = False
-            Else
+    Private Property IsInPause As Boolean
+        Get
+            Return _isInPause
+        End Get
+        Set(value As Boolean)
+            If (value) Then
                 _W.controls.pause()
-                _isInPause = True
+            Else
+                _W.controls.play()
+            End If
+
+            _isInPause = value
+            Timer1.Enabled = Not value
+        End Set
+    End Property
+
+    Private Sub btnPauseResume_Click(sender As Object, e As EventArgs) Handles btnPauseResume.Click
+
+        If (_W Is Nothing) Then
+            PlayMp3()
+        Else
+            If (IsInPause) Then
+                '_W.controls.play()
+                IsInPause = False
+            Else
+                '_W.controls.pause()
+                IsInPause = True
             End If
         End If
 
     End Sub
 
 
+    Private Sub btnStartAtSecond_Click(sender As Object, e As EventArgs) Handles btnStartAtSecond.Click
+        Try
+            ' _W.controls.play()
+            IsInPause = False
+            _W.controls.currentPosition = Double.Parse(txtSeconds.Text)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnMark_Click(sender As Object, e As EventArgs) Handles btnMark.Click
+        txtSeconds.Text = _W.controls.currentPosition
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        txtCurrentSecond.Text = _W.controls.currentPosition.ToString("N0")
+    End Sub
+
+    Private Sub txtSeconds_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSeconds.KeyDown
+        If (e.KeyCode = Keys.Enter) Then
+            btnStartAtSecond_Click(sender, e)
+        End If
+    End Sub
 End Class
