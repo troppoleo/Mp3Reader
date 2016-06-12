@@ -33,15 +33,21 @@ Public Class Main
             _W.close()
         End If
         _W = New WMPLib.WindowsMediaPlayer()
+
+        AddHandler _W.PlayStateChange, AddressOf PlayStateChange
+
         '_W.URL = "C:\Users\Administrator\Downloads\ESLPod1215.mp3"
         Dim myS = txtPath.Text.Trim()
         If (String.IsNullOrWhiteSpace(myS)) Then
             Return
         End If
         _W.URL = myS
+
         _W.controls.play()
         IsInPause = False
         '_isInPlay = True
+
+
     End Sub
 
 
@@ -105,8 +111,14 @@ Public Class Main
         End Set
     End Property
 
-    Private Sub btnPauseResume_Click(sender As Object, e As EventArgs) Handles btnPauseResume.Click
+    ''' <summary>
+    ''' totale durata in secondi
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private _TotDurtion As Double
 
+    Private Sub btnPauseResume_Click(sender As Object, e As EventArgs) Handles btnPauseResume.Click
+        
         If (_W Is Nothing) Then
             PlayMp3()
         Else
@@ -137,7 +149,11 @@ Public Class Main
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        txtCurrentSecond.Text = _W.controls.currentPosition.ToString("N0")
+        Dim myCurr =  _W.controls.currentPosition
+        txtCurrentSecond.Text = myCurr.ToString("N0")
+
+        Dim mt As TimeSpan = TimeSpan.FromSeconds(_TotDurtion - myCurr)
+        lblLeft.Text = String.Format("{0}:{1}", mt.Minutes, mt.Seconds)
     End Sub
 
     Private Sub txtSeconds_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSeconds.KeyDown
@@ -166,4 +182,117 @@ Public Class Main
     Private Sub StartFromHereToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartFromHereToolStripMenuItem.Click
         btnStartAtSecond_Click(sender, e)
     End Sub
+
+    Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+
+    End Sub
+
+    'Private Sub PlayStateChanged(sender As Object, e As _wmpocXEVENTS_playStateChangeHandler)
+    '    Throw New NotImplementedException
+    'End Sub
+
+    'Public Sub player_PlayStateChange(ByVal sender As Object, ByVal e As AxWMPLib._WMPOCXEvents_PlayStateChangeEvent) Handles player.PlayStateChange
+
+    '    ' Test the current state of the player, display a message for each state.
+    '    Select Case e.newState
+
+    '        Case 0 ' Undefined
+    '            currentStateLabel.Text = "Undefined"
+
+    '        Case 1 ' Stopped
+    '            currentStateLabel.Text = "Stopped"
+
+    '        Case 2 ' Paused
+    '            currentStateLabel.Text = "Paused"
+
+    '        Case 3 ' Playing
+    '            currentStateLabel.Text = "Playing"
+
+    '        Case 4 ' ScanForward
+    '            currentStateLabel.Text = "ScanForward"
+
+    '        Case 5 ' ScanReverse
+    '            currentStateLabel.Text = "ScanReverse"
+
+    '        Case 6 ' Buffering
+    '            currentStateLabel.Text = "Buffering"
+
+    '        Case 7 ' Waiting
+    '            currentStateLabel.Text = "Waiting"
+
+    '        Case 8 ' MediaEnded
+    '            currentStateLabel.Text = "MediaEnded"
+
+    '        Case 9 ' Transitioning
+    '            currentStateLabel.Text = "Transitioning"
+
+    '        Case 10 ' Ready
+    '            currentStateLabel.Text = "Ready"
+
+    '        Case 11 ' Reconnecting
+    '            currentStateLabel.Text = "Reconnecting"
+
+    '        Case 12 ' Last
+    '            currentStateLabel.Text = "Last"
+
+    '        Case Else
+    '            currentStateLabel.Text = ("Unknown State: " + e.newState.ToString())
+
+    '    End Select
+
+    'End Sub
+
+
+    Private Sub PlayStateChange(pNewState As Integer)
+        Select Case pNewState
+
+            Case 0 ' Undefined
+                'currentStateLabel.Text = "Undefined"
+
+            Case 1 ' Stopped
+                'currentStateLabel.Text = "Stopped"
+
+            Case 2 ' Paused
+                'currentStateLabel.Text = "Paused"
+
+            Case 3 ' Playing
+                'currentStateLabel.Text = "Playing"
+                _TotDurtion = _W.currentMedia.duration
+                lblTime.Text = _W.currentMedia.durationString
+
+
+            Case 4 ' ScanForward
+                'currentStateLabel.Text = "ScanForward"
+
+            Case 5 ' ScanReverse
+                'currentStateLabel.Text = "ScanReverse"
+
+            Case 6 ' Buffering
+                ' currentStateLabel.Text = "Buffering"
+
+            Case 7 ' Waiting
+                ' currentStateLabel.Text = "Waiting"
+
+            Case 8 ' MediaEnded
+                ' currentStateLabel.Text = "MediaEnded"
+
+            Case 9 ' Transitioning
+                ' currentStateLabel.Text = "Transitioning"
+
+            Case 10 ' Ready
+                ' currentStateLabel.Text = "Ready"
+
+            Case 11 ' Reconnecting
+                'currentStateLabel.Text = "Reconnecting"
+
+            Case 12 ' Last
+                ' currentStateLabel.Text = "Last"
+
+            Case Else
+                ' currentStateLabel.Text = ("Unknown State: " + e.newState.ToString())
+
+        End Select
+    End Sub
+
 End Class

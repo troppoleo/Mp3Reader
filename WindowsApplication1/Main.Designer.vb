@@ -48,9 +48,11 @@ Partial Class Main
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.PauseResumeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MarkToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StartFromHereToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.StartFromHereToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lblTime = New System.Windows.Forms.Label()
+        Me.lblLeft = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -224,7 +226,7 @@ Partial Class Main
         '
         Me.txtCurrentSecond.Location = New System.Drawing.Point(147, 100)
         Me.txtCurrentSecond.Name = "txtCurrentSecond"
-        Me.txtCurrentSecond.Size = New System.Drawing.Size(100, 22)
+        Me.txtCurrentSecond.Size = New System.Drawing.Size(67, 22)
         Me.txtCurrentSecond.TabIndex = 18
         '
         'Label2
@@ -266,6 +268,13 @@ Partial Class Main
         Me.MarkToolStripMenuItem.Size = New System.Drawing.Size(54, 24)
         Me.MarkToolStripMenuItem.Text = "Mark"
         '
+        'StartFromHereToolStripMenuItem
+        '
+        Me.StartFromHereToolStripMenuItem.Name = "StartFromHereToolStripMenuItem"
+        Me.StartFromHereToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3
+        Me.StartFromHereToolStripMenuItem.Size = New System.Drawing.Size(121, 24)
+        Me.StartFromHereToolStripMenuItem.Text = "Start from here"
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.btnMark)
@@ -293,12 +302,25 @@ Partial Class Main
         Me.GroupBox2.TabIndex = 22
         Me.GroupBox2.TabStop = False
         '
-        'StartFromHereToolStripMenuItem
+        'lblTime
         '
-        Me.StartFromHereToolStripMenuItem.Name = "StartFromHereToolStripMenuItem"
-        Me.StartFromHereToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3
-        Me.StartFromHereToolStripMenuItem.Size = New System.Drawing.Size(121, 24)
-        Me.StartFromHereToolStripMenuItem.Text = "Start from here"
+        Me.lblTime.AutoSize = True
+        Me.lblTime.ForeColor = System.Drawing.Color.White
+        Me.lblTime.Location = New System.Drawing.Point(227, 128)
+        Me.lblTime.Name = "lblTime"
+        Me.lblTime.Size = New System.Drawing.Size(24, 17)
+        Me.lblTime.TabIndex = 23
+        Me.lblTime.Text = "##"
+        '
+        'lblLeft
+        '
+        Me.lblLeft.AutoSize = True
+        Me.lblLeft.ForeColor = System.Drawing.Color.White
+        Me.lblLeft.Location = New System.Drawing.Point(227, 105)
+        Me.lblLeft.Name = "lblLeft"
+        Me.lblLeft.Size = New System.Drawing.Size(24, 17)
+        Me.lblLeft.TabIndex = 24
+        Me.lblLeft.Text = "##"
         '
         'Main
         '
@@ -306,6 +328,8 @@ Partial Class Main
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Desktop
         Me.ClientSize = New System.Drawing.Size(953, 233)
+        Me.Controls.Add(Me.lblLeft)
+        Me.Controls.Add(Me.lblTime)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label2)
@@ -357,5 +381,7 @@ Partial Class Main
     Friend WithEvents StartFromHereToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents lblTime As System.Windows.Forms.Label
+    Friend WithEvents lblLeft As System.Windows.Forms.Label
 
 End Class
