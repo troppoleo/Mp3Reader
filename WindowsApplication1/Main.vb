@@ -2,6 +2,7 @@
 
 Public Class Main
 
+
     Private _W As WMPLib.WindowsMediaPlayer = Nothing
 
     Private Sub btnOpen_Click(sender As Object, e As EventArgs) Handles btnOpen.Click
@@ -184,7 +185,16 @@ Public Class Main
     End Sub
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim myArgs = My.Application.CommandLineArgs
 
+        If (Not myArgs Is Nothing AndAlso myArgs.Count = 1 AndAlso Not String.IsNullOrWhiteSpace(myArgs(0))) Then
+            'MessageBox.Show(vv(0))
+            txtPath.Text = myArgs(0)
+
+            If (Not String.IsNullOrWhiteSpace(txtPath.Text)) Then
+                PlayMp3()
+            End If
+        End If
 
     End Sub
 
@@ -295,4 +305,13 @@ Public Class Main
         End Select
     End Sub
 
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+
+    End Sub
 End Class
